@@ -60,24 +60,27 @@ public class MainFrame implements ActionListener {
 
         answer = new JLabel();
         answer.setBounds(50,340,470,50);
+        answer.setBorder(BorderFactory.createLineBorder(Color.black));
         answer.setFont(new Font("Poppins", Font.BOLD,20));
 
-        shapeImg.setBounds(50,200,250,200);
+        shapeImg.setBounds(90,200,250,200);
 
         title.setBounds(60,15,500,50);
         title.setFont(new Font("Poppins",Font.BOLD,35));
         title.setBackground(Color.green);
 
-        formula.setBounds(70,410,250,50);
+        formula.setBounds(100,410,250,50);
         formula.setFont(new Font("Poppins",Font.BOLD,30));
 
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
+        mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         mainPanel.setBackground(Color.white);
         mainPanel.setBounds(60,80,1180,500);
 
         inputPanel = new JPanel();
         inputPanel.setLayout(null);
+        inputPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         inputPanel.setBounds(430,50,670,410);
         inputPanel.setBackground(new Color(242,241,241));
 
@@ -95,7 +98,6 @@ public class MainFrame implements ActionListener {
         frame.add(mainPanel);
         frame.add(title);
         frame.setVisible(true);
-
     }
 
     @Override
@@ -112,57 +114,58 @@ public class MainFrame implements ActionListener {
         String selectedSolve = (String) function.getSelectedItem();
 
         if(e.getSource() == submit) {
-                if (selectedShape.equals("Rectangle") && selectedSolve.equals("Area")) {
-                    formula.setText("A = wl");
-                    textField.setText("Enter length");
-                    textField2.setText("Enter width");
-                    textField2.setVisible(true);
-                    shapeImg.setIcon(rectangleImg);
-                }
-                else if(selectedShape.equals("Rectangle") && selectedSolve.equals("Perimeter")) {
-                    formula.setText("A = 2(w+l)");
-                    textField.setText("Enter length");
-                    textField2.setText("Enter width");
-                    textField2.setVisible(true);
-                    shapeImg.setIcon(rectangleImg);
-                }
-                else if(selectedShape.equals("Circle") && selectedSolve.equals("Area")) {
-                    formula.setText("A = πr2");
-                    textField.setText("Enter radius");
-                    textField2.setVisible(false);
-                    shapeImg.setIcon(circleImg);
-                }
-                else if(selectedShape.equals("Circle") && selectedSolve.equals("Perimeter")) {
-                    formula.setText("C = 2πr");
-                    textField.setText("Enter radius");
-                    textField2.setVisible(false);
-                    shapeImg.setIcon(circleImg);
-                }
+            if (selectedShape.equals("Rectangle") && selectedSolve.equals("Area")) {
+                formula.setText("A = wl");
+                textField.setText("Enter length");
+                textField2.setText("Enter width");
+                textField2.setVisible(true);
+                shapeImg.setIcon(rectangleImg);
             }
-            try {
-                if (e.getSource() == calculate) {
-                    double inputtedNumber1 = Double.valueOf(textField.getText());
-                    double inputtedNumber2 = Double.valueOf(textField2.getText());
-
-                    Circle circle = new Circle(inputtedNumber1);
-                    Rectangle rectangle = new Rectangle(inputtedNumber1,inputtedNumber2);
-
-                    if (selectedShape.equals("Rectangle") && selectedSolve.equals("Area")) {
-                        answer.setText("Area of the Rectangle is " + rectangle.CalculateArea());
-                    }
-                    else if(selectedShape.equals("Rectangle") && selectedSolve.equals("Perimeter")) {
-                        answer.setText("Perimeter of the Rectangle is " + rectangle.CalculatePerimeter());
-                    }
-                    else if(selectedShape.equals("Circle") && selectedSolve.equals("Area")) {
-                        answer.setText("Area of the Circle is " + circle.CalculateArea());
-                    }
-                    else if(selectedShape.equals("Circle") && selectedSolve.equals("Perimeter")) {
-                        answer.setText("Perimeter of the Circle is " + circle.CalculatePerimeter());
-                    }
-                }
-
-            }catch(Exception e1){
-                JOptionPane.showMessageDialog(null, "Wrong Input");
+            else if(selectedShape.equals("Rectangle") && selectedSolve.equals("Perimeter")) {
+                formula.setText("A = 2(w+l)");
+                textField.setText("Enter length");
+                textField2.setText("Enter width");
+                textField2.setVisible(true);
+                shapeImg.setIcon(rectangleImg);
+            }
+            else if(selectedShape.equals("Circle") && selectedSolve.equals("Area")) {
+                formula.setText("A = πr2");
+                textField.setText("Enter radius");
+                textField2.setText("0");
+                textField2.setVisible(false);
+                shapeImg.setIcon(circleImg);
+            }
+            else if(selectedShape.equals("Circle") && selectedSolve.equals("Perimeter")) {
+                formula.setText("C = 2πr");
+                textField.setText("Enter radius");
+                textField2.setText("0");
+                textField2.setVisible(false);
+                shapeImg.setIcon(circleImg);
             }
         }
+        try {
+            if (e.getSource() == calculate) {
+                double inputtedNumber1 = Double.valueOf(textField.getText());
+                double inputtedNumber2 = Double.valueOf(textField2.getText());
+
+                Circle circle = new Circle(inputtedNumber1);
+                Rectangle rectangle = new Rectangle(inputtedNumber1,inputtedNumber2);
+
+                if (selectedShape.equals("Rectangle") && selectedSolve.equals("Area")) {
+                    answer.setText("Area of the Rectangle is " + rectangle.CalculateArea());
+                }
+                else if(selectedShape.equals("Rectangle") && selectedSolve.equals("Perimeter")) {
+                    answer.setText("Perimeter of the Rectangle is " + rectangle.CalculatePerimeter());
+                }
+                else if(selectedShape.equals("Circle") && selectedSolve.equals("Area")) {
+                    answer.setText("Area of the Circle is " + circle.CalculateArea());
+                }
+                else if(selectedShape.equals("Circle") && selectedSolve.equals("Perimeter")) {
+                    answer.setText("Perimeter of the Circle is " + circle.CalculatePerimeter());
+                }
+            }
+        }catch(Exception e1){
+            JOptionPane.showMessageDialog(null, "Wrong Input");
+        }
     }
+}
